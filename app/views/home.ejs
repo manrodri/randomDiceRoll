@@ -1,21 +1,43 @@
-<%- include('partials/head')%> <%- include('partials/navbar')%>
+<%- include('partials/head')%> <%- include('partials/mynavbar')%>
 
-<h1>The Home Page <%= 'hello world'.toUpperCase() %></h1>
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae nulla vero
-  expedita eius a? Possimus nam, inventore perferendis laudantium culpa pariatur
-  corrupti maxime dignissimos consectetur adipisci. Eligendi esse possimus
-  consequatur.lorem Lorem ipsum dolor sit amet consectetur adipisicing elit.
-  Tempore temporibus fugiat, aliquam officiis eius dolorum maiores maxime
-  doloremque? Excepturi libero perferendis eum neque natus corrupti quos
-  pariatur necessitatibus vitae. Officiis.
-</p>
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <div id="left-autocomplete"></div>
+      <div class="card">
+        <form method="POST" action="./output">
+        <div class='card-content'>
+          <div class="columns">
+            <div class="column">
+                <input class='input is-primary' name="dice" placeholder="enter the number of dice to roll" />         
+            </div>
+            <div class="column">
+              <div class="select">
+                <!-- <input class='input is-primary' name="sides" placeholder="enter the number of sides each dice has" /> -->
+                <select name='sides' >
+                   <label for="sides">Select dice sides </label> 
+                  <option value=6>6</option>
+                  <option value=12>12</option>
+                  <option value=24>24</option>
+                  <option value=100>100</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-primary is-primary">Roll the dice</button>
+          </div>        
+        </div>
+      </form>
 
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore maxime,
-  cupiditate obcaecati officiis, ipsam nam exercitationem provident repellat
-  quas qui delectus quibusdam dolores quo distinctio temporibus fugit
-  repellendus? Animi, atque.
-</p>
+        </div>
+      </div>
+    </div>
+    <div class="total-score is-primary">
+      <h1>Select how many dice to roll and the number of sides</h1>
+    </div>
+  </div>
+  
+</div>
 
 <%- include('partials/footer')%>
