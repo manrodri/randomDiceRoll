@@ -1,33 +1,56 @@
 <%- include('partials/head')%> <%- include('partials/mynavbar')%>
 
-  <% if(typeof alert != 'undefined') { %>
-    <% alert.forEach(function(error) { %>
-        <div class="" role="alert">
-            <%= error.msg %>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-    <% }) %>
-<% } %>
+<div class="container">
   
 
-<div class="container">
   <div class="columns">
     <div class="column">
       <div id="left-autocomplete"></div>
       <div class="card">
-        <form method="POST" action="./output">
+
+
+        <form class="row g-3 needs-validation" novalidate>
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Username</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">@</span>
+              <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+              <div class="invalid-feedback">
+                Please choose a username.
+              </div>
+            </div>
+            </div>
+          
+          
+          <div class="col-md-3">
+            <label for="validationCustom04" class="form-label">State</label>
+            <select class="form-select" id="validationCustom04" required>
+              <option selected disabled value="">Choose...</option>
+              <option>...</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid state.
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">Submit form</button>
+          </div>
+          
+        </form>
+
+
+        <form method="POST" action="./output"   class="needs-validation" novalidate>
         <div class='card-content'>
           <div class="columns">
-            <div class="column">
-                <input class='input is-primary' name="dice" placeholder="enter the number of dice to roll" />         
+            <div class="column form-group has-error">
+                <input class='input is-primary' name="dice" placeholder="enter the number of dice to roll" required/>         
             </div>
             <div class="column">
               <div class="select">
                 <!-- <input class='input is-primary' name="sides" placeholder="enter the number of sides each dice has" /> -->
-                <select name='sides' >
-                   <label for="sides">Select dice sides </label> 
+                <label for="sides">Select dice sides </label> 
+                <select name='sides' required >
+                   
                   <option value=6>6</option>
                   <option value=12>12</option>
                   <option value=24>24</option>
@@ -51,5 +74,29 @@
   </div>
   
 </div>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        console.log(form.checkValidity())
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 
 <%- include('partials/footer')%>

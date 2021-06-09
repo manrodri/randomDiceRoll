@@ -1,12 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
-
+const flash = require('connect-flash');
+const session = require('express-session');
 const path = require('path');
+const AppError = require('./AppError');
+const { stat } = require('fs');
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: 'happy dog',
+  saveUninitialized: true,
+  resave: true
+}));
+app.use(flash());
 // eslint-disable-next-line no-undef
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -17,8 +27,8 @@ app.set('views', path.join(__dirname, '/views'));
 app.use(bodyParser.json());
 app.use(function (err, req, res, next) {
   // logic
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
+  console.log('GOT HERE');
+  throw new AppError("something broke", 502);
 });
 
 
@@ -37,7 +47,8 @@ app.post("/output",
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const alert = errors.array();
-      res.render('home', { alert: alert });
+      req.flash('message', 'This is a message from the "/" endpoint');
+      res.redirect('/');
 
       // return res.status(400).send(errors.array());
 
@@ -58,6 +69,17 @@ app.post("/output",
 app.get("/", (req, res) => {
   res.render('home');
 });
+
+
+// app.use(function (err, req, res, next) {
+//   // logic
+//   throw new AppError("something broke", 502);
+// });
+
+// app.use((err, req, res, next) => {
+//   const { status } = err;
+//   res.status(status).send("ERRORRRRRR!");
+// });
 
 
 app.listen(3001, () => {
