@@ -9,14 +9,14 @@
       <div class="card">
 
 
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3 needs-validation"  novalidate>
           <div class="col-md-4">
             <label for="validationCustomUsername" class="form-label">Username</label>
             <div class="input-group has-validation">
               <span class="input-group-text" id="inputGroupPrepend">@</span>
-              <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+              <input type="number" class="form-control" id="diceInput" aria-describedby="inputGroupPrepend" required  min="1" max="6">
               <div class="invalid-feedback">
-                Please choose a username.
+                Please choose an Interger between 1 and 6.
               </div>
             </div>
             </div>
@@ -82,13 +82,20 @@
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.querySelectorAll('.needs-validation')
+  const numberOfDice = document.getElementById('diceInput').value;
+
+ 
 
   // Loop over them and prevent submission
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('submit', function (event) {
-        console.log(form.checkValidity())
         if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        if(!/numberOfDice/.test('^([1-6]$')){
           event.preventDefault()
           event.stopPropagation()
         }
